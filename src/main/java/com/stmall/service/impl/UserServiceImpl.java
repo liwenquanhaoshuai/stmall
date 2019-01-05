@@ -179,5 +179,14 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess(user);
     }
 
+    @Override
+    public ServerResponse checkAdminRole(User user) {
+        //泛型类没指定泛型就默认是object
+        if(user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN) {
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
+    }
+
 
 }
