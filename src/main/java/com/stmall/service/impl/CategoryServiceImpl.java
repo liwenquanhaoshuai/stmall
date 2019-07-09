@@ -6,6 +6,7 @@ import com.stmall.common.ServerResponse;
 import com.stmall.dao.CategoryMapper;
 import com.stmall.pojo.Category;
 import com.stmall.service.ICategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,9 @@ import org.slf4j.Logger;
  * Created by liweqnaun on 2019/1/5.
  */
 @Service("iCategoryService")
+@Slf4j
 public class CategoryServiceImpl implements ICategoryService{
-    private  Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
+//    private  Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
     @Autowired
     private CategoryMapper categoryMapper;
 
@@ -61,7 +63,7 @@ public class CategoryServiceImpl implements ICategoryService{
     public ServerResponse<List<Category>> getChildrenParallelCategory(Integer categoryId) {
         List<Category> categoryList= categoryMapper.selectCategoryChildrenByParentId(categoryId);
         if(CollectionUtils.isEmpty(categoryList)) {
-            logger.info("未找到当前分类的子分类");
+            log.info("未找到当前分类的子分类");
         }
         return ServerResponse.createBySuccess(categoryList);
     }
